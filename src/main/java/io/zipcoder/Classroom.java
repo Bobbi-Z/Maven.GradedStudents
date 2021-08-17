@@ -7,16 +7,17 @@ import static java.lang.Double.MIN_VALUE;
 
 public class Classroom {
 
-
-    private static Map<String, Double []> studentsByExamScores;
+   private static Map<String, Double> studentsByAverages = new LinkedHashMap<>(30, 1, false);
+    private static Map<String, Double []> studentsByExamScores = new LinkedHashMap<>(30, 1, false);
     private Integer numberOfStudents;
 
     public Classroom() {
 
     }
 
-    public Classroom(Integer maxNumberOfStudents, Map<String, Double []> studentsByExamScores) {
-
+    public Classroom(Map<String, Double []> studentsByExamScores, Integer numberOfStudents) {
+            setStudentsByExamScores(studentsByExamScores);
+            this.numberOfStudents = numberOfStudents;
     }
 
     public static Map<String, Double[]> getStudentsByExamScores() {
@@ -35,9 +36,9 @@ public class Classroom {
         numberOfStudents = studentsByExamScores.size();
     }
 
-    public static Map<String, Double[]> createMap(Student student){
-        studentsByExamScores = new LinkedHashMap<>();
-        String key = student. getLastName() + ", " + student.getFirstName();
+    public static Map<String, Double[]> createMap(Map<String, Double []> studentsByExamScores, Student student){
+//        studentsByExamScores = new LinkedHashMap<>();
+        String key = student.getLastName() + ", " + student.getFirstName();
         Double [] value = student.getTestScores();
         studentsByExamScores.put(key, value);
         return studentsByExamScores;
@@ -59,8 +60,8 @@ public class Classroom {
         return classAverage;
     }
 
-    public static Boolean addStudent(Student student){
-      createMap(student);
+    public static Boolean addStudent(Map<String, Double []> studentsByExamScores, Student student){
+      createMap(studentsByExamScores, student);
       return studentsByExamScores.containsKey(student.getLastName() + ", " + student.getFirstName());
     }
 
@@ -77,7 +78,7 @@ public class Classroom {
     }
 
     public  Map<String, Double> getStudentsByAverages(Map<String, Double[]> studentsByExamScores){ //returns a map of students with their averages
-       Map<String, Double> studentsByAverages = new LinkedHashMap<>();
+
         for (Map.Entry<String, Double[]> mapElement : studentsByExamScores.entrySet()) {
             String key = mapElement.getKey();
             Double[] testScores = mapElement.getValue();
@@ -87,40 +88,57 @@ public class Classroom {
           return studentsByAverages;
     }
 
-    public Double findingThePointsToAdd (Map<String, Double> studentsByAverages){
+    public Double findingThePointsToAdd ( Map<String, Double> studentsByAverages){
         List<Double> listOfAverages = new ArrayList<>();
         for (Map.Entry<String, Double> mapElement : studentsByAverages.entrySet()) {
             Double studentAverage = mapElement.getValue();
             listOfAverages.add(studentAverage);
         }
-        Double highestAverage = sorting(listOfAverages);
+        Double highestAverage = findingTheHighest(listOfAverages);
         Double pointsToAdd = 100.00 - highestAverage;
         return pointsToAdd;
     }
 
-    public Double sorting(List<Double> listOfAverages){
+    public Double findingTheHighest(List<Double> listOfAverages){
         Double highest = MIN_VALUE;
         for (Double average : listOfAverages){
-//            for (int index = 1; index < listOfAverages.size(); index++)
             if (average > highest){
                 highest = average;
             }
-
         }
         return highest;
     }
 
+    public Map<String, Double> addingTheCurve(Map<String, Double> studentsByAverages){
+        for (Map.Entry<String, Double> mapElement : studentsByAverages.entrySet()) {
+            Double studentAverage = mapElement.getValue();
+            Double theCurve = studentAverage + findingThePointsToAdd(studentsByAverages);
+            String key = mapElement.getKey();
+            studentsByAverages.put(key, theCurve);
+        }
+        sortByAverage(studentsByAverages);
+        return studentsByAverages;
+    }
 
-    public Map<String, String> getGradeBook(Map<String, Double> mapOfStudent){
-        Student [] sortedStudents = getStudentsByScore(students);
-       Student studentWithTheHighest = sortedStudents[0];
-      Double theCurve = findingTheCurveTheCurve(studentWithTheHighest);
-      Map<Student, String> gradeBook = new LinkedHashMap<>();
-      for (Student student : sortedStudents){
-          Double studentAverage = student.getAverageExamScore(student.createList(student.getTestScores()));
-          Double applyCurve = theCurve + studentAverage;
-          String letterGrade = letterGrades(applyCurve);
-          gradeBook.put(student, letterGrade);
+    public Map<Double, String> sortByAverage(Map<String, Double> studentsByAverages){
+        Map<Double, String> studentsArrangedByAverage = new TreeMap<>();
+        for (Map.Entry<String, Double> mapEntry : studentsByAverages.entrySet()){
+            String value = mapEntry.getKey();
+            Double key = mapEntry.getValue();
+            studentsArrangedByAverage.put(key, value);
+        }
+        getGradeBook(studentsArrangedByAverage);
+        return studentsArrangedByAverage;
+    }
+
+
+    public Map<String, String> getGradeBook(Map<Double, String> studentsArrangedByAverage){
+      Map<String, String> gradeBook = new LinkedHashMap<>();
+      for (Map.Entry<Double, String> entrySet : studentsArrangedByAverage.entrySet()){
+         String key = entrySet.getValue();
+         Double value = entrySet.getKey();
+         String newValue = letterGrades(value);
+         gradeBook.put(key, newValue);
       }
         return gradeBook;
     }
