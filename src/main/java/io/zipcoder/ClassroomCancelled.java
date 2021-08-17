@@ -5,17 +5,17 @@ import java.util.*;
 
 import static java.lang.Double.MIN_VALUE;
 
-public class Classroom {
+public class ClassroomCancelled {
 
    private static Map<String, Double> studentsByAverages = new LinkedHashMap<>(30, 1, false);
     private static Map<String, Double []> studentsByExamScores = new LinkedHashMap<>(30, 1, false);
     private Integer numberOfStudents;
 
-    public Classroom() {
+    public ClassroomCancelled() {
 
     }
 
-    public Classroom(Map<String, Double []> studentsByExamScores, Integer numberOfStudents) {
+    public ClassroomCancelled(Map<String, Double []> studentsByExamScores, Integer numberOfStudents) {
             setStudentsByExamScores(studentsByExamScores);
             this.numberOfStudents = numberOfStudents;
     }
@@ -25,7 +25,7 @@ public class Classroom {
     }
 
     public static void setStudentsByExamScores(Map<String, Double[]> studentsByExamScores) {
-        Classroom.studentsByExamScores = studentsByExamScores;
+        ClassroomCancelled.studentsByExamScores = studentsByExamScores;
     }
 
     public Integer getNumberOfStudents() {

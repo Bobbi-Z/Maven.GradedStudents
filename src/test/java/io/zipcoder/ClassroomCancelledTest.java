@@ -1,20 +1,18 @@
 package io.zipcoder;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.*;
 
-import static io.zipcoder.Classroom.createMap;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public class ClassroomTest {
+public class ClassroomCancelledTest {
 
 
     @Test
     void constructorTest(){
-        Classroom classroom = new Classroom();
+        ClassroomCancelled classroomCancelled = new ClassroomCancelled();
         Integer givenNumberOfStudents = 5;
         Map<String, Double[]> givenStudentMap = new LinkedHashMap<>();
         Double [] examScores1 = {100.00, 95.00, 85.00};
@@ -27,16 +25,16 @@ public class ClassroomTest {
 //        Student fourth = new Student ("Zach", "Singer", examScores4);
 //        Double [] examScores5 = {100.00, 100.00, 80.00};
 //        Student fifth = new Student ("Zach", "Singer", examScores5);
-       classroom.createMap(givenStudentMap, first);
-       classroom.addStudent(givenStudentMap, second);
-//       classroom.addStudent(givenStudentMap, third);
-//       classroom.addStudent(givenStudentMap, fourth);
-//       classroom.addStudent(givenStudentMap, fifth);
+       classroomCancelled.createMap(givenStudentMap, first);
+       classroomCancelled.addStudent(givenStudentMap, second);
+//       classroomCancelled.addStudent(givenStudentMap, third);
+//       classroomCancelled.addStudent(givenStudentMap, fourth);
+//       classroomCancelled.addStudent(givenStudentMap, fifth);
 
-        classroom = new Classroom(givenStudentMap, givenNumberOfStudents);
+        classroomCancelled = new ClassroomCancelled(givenStudentMap, givenNumberOfStudents);
 
-       Map<String, Double []> actualMap = classroom.getStudentsByExamScores();
-        Integer actual = classroom.getNumberOfStudents();
+       Map<String, Double []> actualMap = classroomCancelled.getStudentsByExamScores();
+        Integer actual = classroomCancelled.getNumberOfStudents();
         System.out.println(givenStudentMap.entrySet());
         System.out.println(actualMap.entrySet());
         System.out.println(givenNumberOfStudents);
@@ -49,7 +47,7 @@ public class ClassroomTest {
 
     @Test
     void setStudentsByExamScoresTest() {
-        Classroom classroom = new Classroom();
+        ClassroomCancelled classroomCancelled = new ClassroomCancelled();
         Map<String, Double[]> givenStudentMap = new LinkedHashMap<>();
         Double [] examScores1 = {100.00, 95.00, 85.00};
         Student first = new Student("Bobbi", "Zupon", examScores1);
@@ -61,16 +59,16 @@ public class ClassroomTest {
         Student fourth = new Student ("Zach", "Singer", examScores4);
         Double [] examScores5 = {100.00, 100.00, 80.00};
         Student fifth = new Student ("Zach", "Singer", examScores5);
-        classroom.createMap(givenStudentMap, first);
-        classroom.addStudent(givenStudentMap, second);
-        classroom.addStudent(givenStudentMap, third);
-        classroom.addStudent(givenStudentMap, fourth);
-        classroom.addStudent(givenStudentMap, fifth);
+        classroomCancelled.createMap(givenStudentMap, first);
+        classroomCancelled.addStudent(givenStudentMap, second);
+        classroomCancelled.addStudent(givenStudentMap, third);
+        classroomCancelled.addStudent(givenStudentMap, fourth);
+        classroomCancelled.addStudent(givenStudentMap, fifth);
 
 
-       classroom.setStudentsByExamScores(givenStudentMap);
+       classroomCancelled.setStudentsByExamScores(givenStudentMap);
 
-        Map<String, Double []> actualMap = classroom.getStudentsByExamScores();
+        Map<String, Double []> actualMap = classroomCancelled.getStudentsByExamScores();
 
         Assertions.assertEquals(givenStudentMap, actualMap);
         givenStudentMap.clear();
@@ -78,7 +76,7 @@ public class ClassroomTest {
 
     @Test
     void setNumberOfStudentsTest() {
-        Classroom classroom = new Classroom();
+        ClassroomCancelled classroomCancelled = new ClassroomCancelled();
         Integer givenNumberOfStudents = 5;
         Map<String, Double[]> givenStudentMap = new LinkedHashMap<>();
         Double [] examScores1 = {100.00, 95.00, 85.00};
@@ -91,17 +89,17 @@ public class ClassroomTest {
         Student fourth = new Student ("Zach", "Singer", examScores4);
         Double [] examScores5 = {100.00, 100.00, 80.00};
         Student fifth = new Student ("Zach", "Singer", examScores5);
-        classroom.createMap(givenStudentMap, first);
-        classroom.addStudent(givenStudentMap, second);
-        classroom.addStudent(givenStudentMap, third);
-        classroom.addStudent(givenStudentMap, fourth);
-        classroom.addStudent(givenStudentMap, fifth);
+        classroomCancelled.createMap(givenStudentMap, first);
+        classroomCancelled.addStudent(givenStudentMap, second);
+        classroomCancelled.addStudent(givenStudentMap, third);
+        classroomCancelled.addStudent(givenStudentMap, fourth);
+        classroomCancelled.addStudent(givenStudentMap, fifth);
 
 
-        classroom.setStudentsByExamScores(givenStudentMap);
-        classroom.setNumberOfStudents(givenStudentMap);
+        classroomCancelled.setStudentsByExamScores(givenStudentMap);
+        classroomCancelled.setNumberOfStudents(givenStudentMap);
 
-        Integer actual = classroom.getNumberOfStudents();
+        Integer actual = classroomCancelled.getNumberOfStudents();
         System.out.println(givenStudentMap);
         Assertions.assertEquals(givenNumberOfStudents, actual);
     }

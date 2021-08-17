@@ -347,10 +347,10 @@
 			Student s2 = new Student("student", "two", s2Scores);
 			
 			Student[] students = {s1,s2};
-			Classroom classroom = new Classroom(students);
+			Classroom classroomCancelled = new Classroom(students);
 			
 			// When
-			double output = classroom.getAverageExamScore();
+			double output = classroomCancelled.getAverageExamScore();
 			
 			// Then
 			System.out.println(output);
@@ -382,14 +382,14 @@
 			```
 			// : Given
 			int maxNumberOfStudents = 1;
-			Classroom classroom = new Classroom(maxNumberOfStudents);
+			Classroom classroomCancelled = new Classroom(maxNumberOfStudents);
 			Double[] examScores = { 100.0, 150.0, 250.0, 0.0 };
 			Student student = new Student("Leon", "Hunter", examScores);			
 
 			// When
-			Student[] preEnrollment = classroom.getStudents();
-			classroom.addStudent(student);
-			Student[] postEnrollment = classroom.getStudents();
+			Student[] preEnrollment = classroomCancelled.getStudents();
+			classroomCancelled.addStudent(student);
+			Student[] postEnrollment = classroomCancelled.getStudents();
 			
 			// Then
 			String preEnrollmentAsString = Arrays.toString(preEnrollment);

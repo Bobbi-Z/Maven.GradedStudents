@@ -23,7 +23,7 @@ public class Student implements Comparable<Student> {
 
     }
 
-    public static String getFirstName() {
+    public String getFirstName() {
         return firstName;
     }
 
@@ -31,7 +31,7 @@ public class Student implements Comparable<Student> {
         this.firstName = firstName;
     }
 
-    public static String getLastName() {
+    public String getLastName() {
         return lastName;
     }
 
@@ -72,7 +72,8 @@ public class Student implements Comparable<Student> {
         return oneExam;
     }
 
-    public static Boolean addExamScore(List<Double> examScores, double examScore){
+    public static Boolean addExamScore(List<Double> examScores, double examScore) {
+
         return examScores.add(examScore);
     }
 
@@ -82,6 +83,16 @@ public class Student implements Comparable<Student> {
             totalScores += score;
         }
         Double average = DoubleRounder.round((totalScores / examScores.size()), 2);
+        return average;
+    }
+
+    public static Double getAverageExamScore3(Student student){
+        Double [] examScores = student.getTestScores();
+        Double totalScores = 0.00;
+        for(Double score : examScores){
+            totalScores += score;
+        }
+        Double average = DoubleRounder.round((totalScores / examScores.length), 2);
         return average;
     }
 
@@ -95,7 +106,7 @@ public class Student implements Comparable<Student> {
     }
 
     public String toString(){
-        return "Student Name: " + Student.getFirstName() + " " + Student.getLastName() + " \n" +
+        return "Student Name: " + getFirstName() + " " + getLastName() + " \n" +
                 "> Average Score: " + Student.getAverageExamScore(examScores) + " \n" +
                     Student.getExamScores(examScores);
     }
